@@ -1,0 +1,70 @@
+#!/bin/bash
+# This file is part of Nagual software.
+#
+#    Nagual is free software: you can redistribute it and/or modify
+#    it under the terms of the GNU General Public License as published by
+#    the Free Software Foundation, version 3 of the License.
+#
+#    Nagual is distributed in the hope that it will be useful,
+#    but WITHOUT ANY WARRANTY; without even the implied warranty of
+#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#    GNU General Public License for more details.
+#
+#    You should have received a copy of the GNU General Public License
+#    along with Nagual.  If not, see <http://www.gnu.org/licenses/>.
+#
+# Cite as follows:
+# 
+# R. Flores-Moreno, H. N. Gonzalez-Ramirez, J. F. H. Lew-Yee, J. M. del Campo,
+# J. J. Villalobos-Castro, J. A. Flores-Ramos, J. A. Guerrero-Cruz,
+# B. Zuniga-Gutierrez, Nagual 1, Guadalajara Jal., Mexico (2020)
+#
+####################################################
+#   Nagual: Multicomponent many body calculations.
+#   Copyright (C) 2006-2020 Nagual developers.
+#
+#   Contact: r.flores@academicos.udg.mx
+#
+#!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+#
+# Compile fortran sources
+#
+SRCMOD=$(ls *.F90)
+THEFC="gfortran -g"
+THEFLAGS="-O0 -fdefault-real-8"
+#
+cat > makefile <<-***
+	TARGET=Nagual.1.exe
+	FC=$THEFC
+	INC=-I.
+	FLAGS=$THEFLAGS
+	LIBS=-llapack -lblas
+
+	OBJECTS=$(for file in $SRCMOD 
+                  do
+                    echo -e "${file%.F90}.o \c"
+                  done
+                  ) 
+	***
+echo -e "\n\$(TARGET)	: \$(OBJECTS)" >> makefile
+echo -e "\t\$(FC) -o \$(TARGET) \$(OBJECTS) \$(FLAGS) \$(LIBS) \n\t mv \$(TARGET) ../bin\t" >> makefile
+#
+for file in $SRCMOD 
+do
+  echo -e "${file%.F90}.o:\t${file} \c" >> makefile
+  for ifile in $INC
+  do
+     inc=$(grep $ifile $file)
+     if [[ -n $inc ]]
+     then
+       echo -e "$ifile \c" >> makefile
+     fi
+  done
+  for mod in $(grep use\  $file | cut -d" " -f4 | cut -d"_" -f1)
+  do
+    name=$(echo $mod | tr A-Z a-z)
+    echo -e "$name.o \c" >> makefile
+  done
+  echo -e "\n\t\$(FC) -c \$(INC) \$(FLAGS) ${file}\n" >> makefile
+done
+#
