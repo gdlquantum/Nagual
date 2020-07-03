@@ -1,6 +1,6 @@
 # Nagual
 
-# <img src="https://github.com/felipelewyee/Nagual/blob/master/logoNGL.jpg">
+# <img src="https://github.com/felipelewyee/Nagual/blob/master/logoNGL.jpg" class="center">
 
 ## License
 
