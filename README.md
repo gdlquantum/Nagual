@@ -1,12 +1,16 @@
-License
+# Nagual
+
+# <img src="https://github.com/felipelewyee/Nagual/blob/master/logoNGL.jpg">
+
+## License
 
  Please read file named LICENSE
 
-Installation
+## Installation
 
  Read installation chapter in the manual
 
-Running calculations
+## Running calculations
 
  For a direct calculation
 
@@ -15,7 +19,7 @@ Running calculations
   2) Locate your sesion at the same directory where "Nagual.inp" is located
   3) Execute nagual.x.y.exe
 
-Any further questions? Please contact
+## Any further questions? Please contact
 
  Roberto Flores-Moreno
  Chemistry Department
