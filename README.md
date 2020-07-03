@@ -1,6 +1,6 @@
-# Nagual
-
-![Logo of Nagual](logoNGL.jpg)
+<p align="center">
+  <img src="logoNGL.jpg" />
+</p>
 
 ## License
 
