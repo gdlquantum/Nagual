@@ -1,0 +1,6 @@
+nagual/src/*.o
+nagual/src/*.mod
+nagual/src/makefile
+nagual/bin/nagual
+
+gnagual/src/*.o
