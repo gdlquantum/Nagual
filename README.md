@@ -29,6 +29,7 @@
  the corresponding directory properly addressed.
 
 ### Compiling GNagual 1
+
  Put yourself in the “gnagual/src” directory and once there type the following:
  ```
  >>> qmake
